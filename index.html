@@ -1,143 +1,374 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <title>HOME | RIMA STUDIOS</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    backgroundImage: {
-                        'hero': "url('assets/hero.png')"
-                    },
-                    colors: {
-                        primary: '#B97A0C',
-                        secondary: '#56665B',
-                        feature: "#F3EFE0"
-                    }
-                }
-            }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HeyNext — Simple Digital Waitlist for Salons & Barbers</title>
+
+  <!-- Google Font: Playfair Display (serif) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN (for quick prototyping) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind custom config for serif font + palette
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'hn-charcoal': '#111017',
+            'hn-beige': '#f7f3ee',
+            'hn-warm': '#efe7de',
+            'hn-gold': '#c9a45a',
+            'hn-muted': '#6b6b6b'
+          },
+          fontFamily: {
+            'serif-hey': ['"Playfair Display"', 'serif']
+          },
+          boxShadow: {
+            'soft-lg': '0 10px 30px rgba(17,16,23,0.08)'
+          }
         }
-    </script>
+      }
+    }
+  </script>
+
+  <style>
+    /* small visual tweaks */
+    .gradient-hero {
+      background: linear-gradient(180deg, rgba(17,16,23,0.85) 0%, rgba(17,16,23,0.65) 40%), url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+    /* make hero text crisp on images */
+    .backdrop-faint {
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(2px);
+    }
+  </style>
 </head>
+<body class="antialiased text-gray-800 bg-hn-beige">
 
-<body class="bg-[#eff4f2]">
-    <section id="hero" class="h-[320px] md:min-h-[700px] w-full bg-hero bg-no-repeat bg-center bg-cover flex ">
-        <div class="w-full backdrop-brightness-[30%] flex justify-center px-8">
-            <div class="max-w-5xl w-full flex flex-col justify-between mt-8 md:mt-[80px]">
-                <div class="w-[55px] md:w-[95px] h-[55px] md:h-[95px]">
-                        <img src="assets/logo.png" />
-                </div>
-                <div class="mb-10 md:mb-[6rem]">
-                    <h6 class="hidden md:block md:text-base text-white mb-[15px] md:mb-[20px] tracking-widest">/ &nbsp;&nbsp;RIMA STUDIOS &nbsp;&nbsp;/  &nbsp;&nbsp;SOFTWARE
-                        DEVELOPMENT & DESIGN STUDIO</h6>
-                    <span class="text-[28px] md:text-[55px] tracking-normal text-white">We build solutions to <br>help
-                        your small
-                        business thrive.</span>
-                </div>
-            </div>
+  <!-- NAV -->
+  <header class="fixed inset-x-0 top-0 z-50 bg-transparent">
+    <div class="max-w-6xl mx-auto px-5 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-md bg-hn-charcoal flex items-center justify-center">
+          <span class="text-hn-beige font-serif-hey font-semibold">HN</span>
         </div>
+        <span class="font-serif-hey text-hn-charcoal text-lg">HeyNext</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#how" class="hover:underline text-hn-charcoal/80">How it works</a>
+        <a href="#insights" class="hover:underline text-hn-charcoal/80">Insights</a>
+        <a href="#pricing" class="hover:underline text-hn-charcoal/80">Pricing</a>
+        <a href="#start" class="px-4 py-2 border border-hn-charcoal rounded-md text-hn-charcoal hover:bg-hn-charcoal/5">Start Free</a>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button id="mobileToggle" aria-label="Open menu" class="p-2 rounded-md border border-transparent">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-hn-charcoal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden bg-hn-beige/80 border-t border-hn-charcoal/5">
+      <div class="px-5 py-4 space-y-3">
+        <a href="#how" class="block text-hn-charcoal/80">How it works</a>
+        <a href="#insights" class="block text-hn-charcoal/80">Insights</a>
+        <a href="#pricing" class="block text-hn-charcoal/80">Pricing</a>
+        <a href="#start" class="block text-hn-charcoal/80 font-medium">Start Free</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-28">
+
+    <!-- HERO -->
+    <section class="gradient-hero text-white">
+      <div class="max-w-6xl mx-auto px-5 py-20 lg:py-28">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <p class="text-sm tracking-wide uppercase text-hn-gold font-medium">For brow studios, barbers, & salons</p>
+            <h1 class="mt-4 font-serif-hey text-4xl md:text-5xl leading-tight font-semibold">A Simple Digital Waitlist for Busy Beauty Studios</h1>
+            <p class="mt-6 max-w-xl text-sm text-hn-beige/90">Keep your clients happy, your lobby clear, and your business running smoothly — without spending a fortune. Quick setup, no training, works on any device.</p>
+
+            <div class="mt-8 flex flex-col sm:flex-row gap-3">
+              <a href="#start" class="inline-flex items-center justify-center gap-3 px-6 py-3 bg-hn-gold text-hn-charcoal rounded-md font-semibold shadow-soft-lg">
+                Start Free 7-Day Trial
+              </a>
+              <a href="#how" class="inline-flex items-center justify-center gap-3 px-6 py-3 border border-white/25 rounded-md text-white/90">
+                How it works
+              </a>
+            </div>
+
+            <div class="mt-3 text-xs text-hn-beige/80 max-w-md">
+              <strong class="text-hn-beige">No credit card required.</strong> 
+            </div>
+          </div>
+
+          <!-- Right: visual card -->
+          <div class="hidden lg:block">
+            <div class="rounded-2xl overflow-hidden shadow-soft-lg bg-white/5 backdrop-faint p-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-hn-beige/80">Active Queue</div>
+                  <div class="mt-2 text-white text-2xl font-medium">5 clients</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-xs text-hn-beige/60">Avg wait</div>
+                  <div class="mt-2 text-white font-semibold">18 min</div>
+                </div>
+              </div>
+
+              <ul class="mt-6 space-y-4">
+                <!-- sample list -->
+                <li class="flex items-center justify-between bg-white/5 p-3 rounded-lg">
+                  <div>
+                    <div class="text-white font-medium">Sofia — Brow Wax</div>
+                    <div class="text-xs text-hn-beige/80">2 ahead • Checked in via QR</div>
+                  </div>
+                  <div class="text-xs text-hn-gold font-semibold">Notify</div>
+                </li>
+
+                <li class="flex items-center justify-between bg-white/5 p-3 rounded-lg">
+                  <div>
+                    <div class="text-white font-medium">Marcus — Haircut</div>
+                    <div class="text-xs text-hn-beige/80">4 ahead • Walk-in</div>
+                  </div>
+                  <div class="text-xs text-hn-gold font-semibold">Notify</div>
+                </li>
+              </ul>
+
+              <!--<div class="mt-6 text-xs text-hn-beige/80">Clients get SMS updates — so your lobby stays calm and you stay focused.</div>-->
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="who" class="flex justify-center px-8">
-        <div class="max-w-5xl w-full pb-16">
-            <div class="flex flex-col lg:flex-row mt-10 md:mt-[7rem]">
-                <p class="w-[160px] text-base text-secondary mt-2 mr-24">/ &nbsp;WHO ARE WE?</p>
-                <p class="tracking-wide mt-4 md:mt-0 text-[18px] md:text-[26px] text-secondary leading-[1.8em]">We are a
-                    <span class="text-primary">development
-                        studio</span> that
-                    specializes in <br class="hidden lg:block"> <span class="text-primary">creating modern websites</span> and <span class="text-primary">custom software <br class="hidden lg:block">solutions</span> tailored to your business needs. <br class="hidden lg:block">From building a powerful online presence to <br class="hidden lg:block">crafting bespoke web and mobile applications, <br class="hidden lg:block">we solve complex challenges to <span class="text-primary">drive your growth <br class="hidden lg:block">and streamline operations.</span>
-
-
-                </p>
-            </div>
-            <div class="md:h-[470px] mt-14 md:mt-[7rem] flex flex-col md:flex-row items-center flex gap-8 relative">
-                <div
-                    class="absolute bg-feature h-[85%] md:h-full w-full md:w-[93%] z-0 top-[5%] md:top-0 left-0 md:left-[10%] right-0 md:right-[-5%]">
-                </div>
-                <div class="w-[270px] md:w-[303px] h-[372px] z-10">
-                    <img class="object-cover" src="assets/feature1.png" />
-                </div>
-                <div class="w-[270px] md:w-[303px] h-[372px] z-10">
-                    <img class="object-cover" src="assets/feature2.png" />
-                </div>
-                <div class="w-[270px] md:w-[303px] h-[372px] z-10">
-                    <img class="object-cover" src="assets/feature3.png" />
-                </div>
-            </div>
-
-            <div class="flex flex-col lg:flex-row md:mt-[10rem]">
-                <span class="w-[160px] text-base text-secondary mt-4 mr-24">/ &nbsp;OUR VALUES</span>
-                <div>
-                    <span class="text-[27px] md:text-[54px] text-secondary">What we're driven by</span>
-                    <div class="mt-8 md:mt-14 flex flex-col md:flex-row gap-8 md:gap-20">
-                        <div class="w-[315px] md:w-[355px]">
-                            <div class="text-primary text-[27px] md:text-[34px] mb-3">Quality</div>
-                            <div class="text-[18px] text-secondary md:leading-9">By giving meticulous attention to every detail, we create solutions that far surpass the status quo. Our commitment to quality drives us to deliver nothing short of excellence, ensuring that every product and service we offer is the best we can humanly create. Because it’s the right thing to do, for our clients and for ourselves.</div>
-                        </div>
-                        <div class="w-[315px] md:w-[355px]">
-                            <div class="text-primary text-[27px] md:text-[34px] mb-3">Simplicity</div>
-                            <div class="text-[18px] text-secondary md:leading-9">We understand that running a business is challenging, and our mission is to make it easier. By transforming complexity into simplicity, we not only differentiate our work but also empower our customers to thrive. This commitment to clarity and efficiency is at the core of everything we do.</div>
-                        </div>
-                    </div>
-                    <div class="mt-8 md:mt-14 flex flex-col md:flex-row gap-8 md:gap-20">
-                        <div class="w-[315px] md:w-[355px]">
-                            <div class="text-primary text-[27px] md:text-[34px] mb-3">Dependability</div>
-                            <div class="text-[18px] text-secondary md:leading-9">We are dedicated to consistently delivering on our promises and communicating proactively, believing that the best solutions arise from close collaboration. By treating your business as our own, we commit to providing services that you can fully trust and rely upon.</div>
-                        </div>
-                        <div class="w-[315px] md:w-[355px]">
-                            <div class="text-primary text-[27px] md:text-[34px] mb-3">Relationship</div>
-                            <div class="text-[18px] text-secondary md:leading-9">Our goal is to build long-term relationships with our clients by consistently exceeding expectations through our solutions and delivering exceptional service and support. We believe that our success is rooted in the trust and satisfaction of our clients, and we are dedicated to fostering enduring partnerships.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flex flex-col md:flex-row mt-14 md:mt-[10rem]">
-                <span class="w-[160px] text-base text-secondary mt-4 mr-24">/ &nbsp;SERVICES</span>
-                <div>
-                    <span class="text-[27px] md:text-[54px] text-secondary">What we do best</span>
-                    <div class="mt-8 md:mt-14 flex flex-col gap-6 md:gap-8">
-                        <div class="flex text-base md:text-[28px] gap-4 md:gap-12">
-                            <p class="text-primary">01</p>
-                            <p class="text-secondary">Web Application Development</p>
-                        </div>
-                        <div class="flex text-base md:text-[28px] gap-4 md:gap-12">
-                            <p class="text-primary">02</p>
-                            <p class="text-secondary">Mobile Application Development</p>
-                        </div>
-                        <div class="flex text-base md:text-[28px] gap-4 md:gap-12">
-                            <p class="text-primary">03</p>
-                            <p class="text-secondary">Website Design</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flex flex-col md:flex-row mt-14 md:mt-[10rem]">
-                <span class="w-[160px] text-base text-secondary mt-4 mr-24">/ &nbsp;CONTACT</span>
-                <div>
-                    <p class="text-[27px] md:text-[54px] text-secondary">Need a solution?</p>
-                    <p class="text-[27px] md:text-[54px] text-secondary leading-[2.9rem]">Let's <span
-                            class="text-primary">get in touch</span>.</p>
-                    <button
-                        class="w-[201px] h-[46px] bg-primary rounded-xl mt-10 md:mt-14 text-white hover:bg-secondary ease-in duration-150">
-                        <a href="mailto:hello@rimastudios.net">Email Us</a>
-                    </button>
-                    <div class="flex flex-col md:flex-row mt-24 gap-8 md:gap-24">
-                        <p>Ⓒ 2024 RIMA STUDIOS LLC</p>
-                    </div>
-                </div>
-            </div>
+    <!-- WHY BUSINESSES LOVE IT -->
+    <section id="why" class="bg-hn-warm">
+      <div class="max-w-6xl mx-auto px-5 py-14">
+        <div class="text-center max-w-3xl mx-auto">
+          <h2 class="font-serif-hey text-2xl text-hn-charcoal font-semibold">Run your shop smarter, not harder</h2>
+          <p class="mt-4 text-hn-muted">HeyNext replaces paper sign-ins and crowded lobbies with a clean, digital queue your clients and staff will love.</p>
         </div>
+
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white rounded-lg p-6 shadow-soft-lg">
+            <div class="text-hn-charcoal font-medium">⏳ Save Time</div>
+            <div class="mt-2 text-sm text-hn-muted">No more shouting “Who’s next?” or losing track of clients.</div>
+          </div>
+          <div class="bg-white rounded-lg p-6 shadow-soft-lg">
+            <div class="text-hn-charcoal font-medium">📱 Real-Time Updates</div>
+            <div class="mt-2 text-sm text-hn-muted">Clients get text reminders when it’s almost their turn.</div>
+          </div>
+          <div class="bg-white rounded-lg p-6 shadow-soft-lg">
+            <div class="text-hn-charcoal font-medium">👀 Transparent Reports</div>
+            <div class="mt-2 text-sm text-hn-muted">Track wait times, busiest hours, and staff performance.</div>
+          </div>
+          <div class="bg-white rounded-lg p-6 shadow-soft-lg">
+            <div class="text-hn-charcoal font-medium">💼 Professional & Affordable</div>
+            <div class="mt-2 text-sm text-hn-muted">Modernize your shop without changing how you work.</div>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="max-w-6xl mx-auto px-5 py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <h3 class="font-serif-hey text-2xl text-hn-charcoal font-semibold">How It Works — 3 Easy Steps</h3>
+          <p class="mt-4 text-hn-muted max-w-lg">From scanning a QR to sending an SMS — it’s that simple. Minimal learning curve; immediate benefits.</p>
+
+          <ol class="mt-8 space-y-6">
+            <li class="flex gap-4 items-start">
+              <div class="flex-none w-10 h-10 rounded-full bg-hn-charcoal text-hn-beige flex items-center justify-center font-semibold">1</div>
+              <div>
+                <div class="font-medium text-hn-charcoal">Clients Check In Digitally</div>
+                <div class="text-sm text-hn-muted">They scan your QR code or join from a link on your website.</div>
+              </div>
+            </li>
+
+            <li class="flex gap-4 items-start">
+              <div class="flex-none w-10 h-10 rounded-full bg-hn-charcoal text-hn-beige flex items-center justify-center font-semibold">2</div>
+              <div>
+                <div class="font-medium text-hn-charcoal">You Manage the Queue</div>
+                <div class="text-sm text-hn-muted">See all walk-ins on your dashboard — mark clients ready with a tap.</div>
+              </div>
+            </li>
+
+            <li class="flex gap-4 items-start">
+              <div class="flex-none w-10 h-10 rounded-full bg-hn-charcoal text-hn-beige flex items-center justify-center font-semibold">3</div>
+              <div>
+                <div class="font-medium text-hn-charcoal">HeyNext Notifies Clients</div>
+                <div class="text-sm text-hn-muted">They get a message when it’s almost their turn — no crowded waiting room.</div>
+              </div>
+            </li>
+          </ol>
+
+          <div class="mt-8">
+            <a href="#start" class="inline-block px-6 py-3 bg-hn-charcoal text-hn-beige rounded-md font-semibold">Try Free — 7 Days</a>
+          </div>
+        </div>
+
+        <!-- Visual / testimonial -->
+        <div class="bg-white rounded-2xl p-6 shadow-soft-lg">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-hn-gold/20 flex items-center justify-center">
+              <!-- quote icon -->
+             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+            </svg>
+            </div>
+            <div>
+              <div class="font-medium text-hn-charcoal">“Since using HeyNext, my clients don’t have to sit around waiting. I can focus on cutting hair, not managing chaos.”</div>
+              <div class="text-sm text-hn-muted mt-1">— Jay, Barber Shop Owner</div>
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-2 gap-4">
+            <div class="bg-hn-beige/70 p-4 rounded-md">
+              <div class="text-xs text-hn-muted">Avg wait</div>
+              <div class="mt-1 font-semibold">18 min</div>
+            </div>
+            <div class="bg-hn-beige/70 p-4 rounded-md">
+              <div class="text-xs text-hn-muted">Clients served</div>
+              <div class="mt-1 font-semibold">128 / week</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- INSIGHTS -->
+    <section id="insights" class="bg-hn-warm">
+      <div class="max-w-6xl mx-auto px-5 py-14">
+        <div class="text-center">
+          <h3 class="font-serif-hey text-2xl text-hn-charcoal font-semibold">Insights that Help You Grow</h3>
+          <p class="mt-3 text-hn-muted max-w-2xl mx-auto">Simple reports so you can make smarter business decisions — no spreadsheets required.</p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-lg p-6 shadow-soft-lg">
+            <div class="text-xs text-hn-muted">Total Walk-ins</div>
+            <div class="mt-2 text-2xl font-semibold text-hn-charcoal">1,240</div>
+            <div class="mt-3 text-sm text-hn-muted">See walk-ins per day, week, or month.</div>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow-soft-lg">
+            <div class="text-xs text-hn-muted">Average Wait Time</div>
+            <div class="mt-2 text-2xl font-semibold text-hn-charcoal">16 min</div>
+            <div class="mt-3 text-sm text-hn-muted">Monitor staffing needs during peak hours.</div>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow-soft-lg">
+            <div class="text-xs text-hn-muted">Peak Hours</div>
+            <div class="mt-2 text-2xl font-semibold text-hn-charcoal">Sat 10AM - 2PM</div>
+            <div class="mt-3 text-sm text-hn-muted">Plan staff schedules with confidence.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="max-w-6xl mx-auto px-5 py-16">
+      <div class="text-center">
+        <h3 class="font-serif-hey text-2xl text-hn-charcoal font-semibold">Pricing</h3>
+        <p class="mt-3 text-hn-muted max-w-2xl mx-auto">Affordable plans designed for small shops and solo owners. Start with a 7-day free trial.</p>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Starter -->
+        <div class="border border-hn-charcoal/8 rounded-2xl p-6 bg-white">
+          <div class="text-sm text-hn-muted">Starter</div>
+          <div class="mt-2 text-3xl font-serif-hey font-semibold text-hn-charcoal">TBD<span class="text-sm text-hn-muted">/mo</span></div>
+          <ul class="mt-4 space-y-2 text-sm text-hn-muted">
+            <li>1 queue</li>
+            <li>SMS reminders</li>
+            <li>Simple reports</li>
+          </ul>
+          <div class="mt-6">
+            <a href="#start" class="block text-center px-4 py-2 rounded-md border border-hn-charcoal text-hn-charcoal">Start Free Trial</a>
+          </div>
+        </div>
+
+        <!-- Pro -->
+        <div class="border-2 border-hn-gold rounded-2xl p-6 bg-white shadow-soft-lg">
+          <div class="text-sm text-hn-muted">Pro</div>
+          <div class="mt-2 text-3xl font-serif-hey font-semibold text-hn-charcoal">TBD<span class="text-sm text-hn-muted">/mo</span></div>
+          <ul class="mt-4 space-y-2 text-sm text-hn-muted">
+            <li>Multiple queues</li>
+            <li>Advanced reports</li>
+            <li>Branding options</li>
+          </ul>
+          <div class="mt-6">
+            <a href="#start" class="block text-center px-4 py-2 rounded-md bg-hn-gold text-hn-charcoal font-semibold">Start Free Trial</a>
+          </div>
+        </div>
+
+        <!-- Business 
+        <div class="border border-hn-charcoal/8 rounded-2xl p-6 bg-white">
+          <div class="text-sm text-hn-muted">Business</div>
+          <div class="mt-2 text-3xl font-serif-hey font-semibold text-hn-charcoal">$79<span class="text-sm text-hn-muted">/mo</span></div>
+          <ul class="mt-4 space-y-2 text-sm text-hn-muted">
+            <li>Multi-location</li>
+            <li>Team access</li>
+            <li>POS integrations</li>
+          </ul>
+          <div class="mt-6">
+            <a href="#start" class="block text-center px-4 py-2 rounded-md border border-hn-charcoal text-hn-charcoal">Start Free Trial</a>
+          </div>
+        </div>-->
+      </div>
+    </section>
+
+    <!-- CTA / START -->
+    <section id="start" class="bg-hn-charcoal text-hn-beige">
+      <div class="max-w-4xl mx-auto px-5 py-14 text-center">
+        <h3 class="font-serif-hey text-3xl font-semibold">Happier clients. Less chaos. More time doing what you love.</h3>
+        <p class="mt-3 text-hn-beige/90">Start your free 7-day trial — no credit card required. Works on any phone or tablet.</p>
+
+        <form class="mt-8 sm:flex sm:justify-center gap-3" onsubmit="event.preventDefault(); alert('Trial started — demo only. Replace with real signup flow.');">
+          <label for="email" class="sr-only">Email</label>
+          <input id="email" type="email" required placeholder="your@email.com"
+                 class="w-full sm:w-auto px-4 py-3 rounded-md text-hn-charcoal placeholder-hn-muted focus:outline-none focus:ring-2 focus:ring-hn-gold" />
+          <button type="submit" class="mt-3 sm:mt-0 px-6 py-3 bg-hn-gold text-hn-charcoal font-semibold rounded-md">Start Free Trial</button>
+        </form>
+
+        <div class="mt-6 text-sm text-hn-beige/80">Need help? Email <a href="mailto:support@heynext.app" class="underline">support@heynext.app</a></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-hn-warm text-hn-muted">
+    <div class="max-w-6xl mx-auto px-5 py-8 flex flex-col md:flex-row items-center justify-between">
+      <div class="text-sm">© <span id="year"></span> HeyNext — All rights reserved.</div>
+      <div class="mt-3 md:mt-0 flex gap-4 text-sm">
+        <a href="#" class="hover:underline">Privacy</a>
+        <a href="#" class="hover:underline">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // simple mobile menu toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileToggle?.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
-
 </html>
